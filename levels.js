@@ -1,9 +1,9 @@
-import Brick from "/src/brick";
-
 export default class Levels {
   constructor() {
+    //A 3-layered array containing all levels as 2-layer arrays within
     this.level = [
       [
+        //LEVEL 1
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -12,6 +12,7 @@ export default class Levels {
       ],
 
       [
+        //LEVEL 2
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],

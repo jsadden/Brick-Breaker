@@ -1,9 +1,11 @@
 export function collisionDetection(ball, object) {
+  //Ball sides
   let ballBottom = ball.position.y + ball.size;
   let ballTop = ball.position.y;
   let ballLeft = ball.position.x;
   let ballRight = ball.position.x + ball.size;
 
+  //Object sides
   let objectTop = object.position.y;
   let objectLeft = object.position.x;
   let objectRight = object.position.x + object.width;
