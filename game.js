@@ -27,6 +27,7 @@ export default class Game {
     this.lives = 3; //number of lives
     this.currentLevel = 1; //starting level
     this.points = 0; //user score
+    this.backgroundImage = document.getElementById("backgroundImg");
   }
   //////////////////
   //Initialize game, build level
@@ -96,6 +97,9 @@ export default class Game {
   //Draw game based on current gamestate
   //////////////////
   draw(ctx) {
+    //Draw background
+    ctx.drawImage(this.backgroundImage, 0, 0, this.gameWidth, this.gameHeight);
+
     //Call draw function of each object
     this.gameObjects.forEach(object => object.draw(ctx));
 

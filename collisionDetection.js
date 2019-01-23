@@ -15,8 +15,8 @@ export function collisionDetection(ball, object) {
   if (
     ballBottom >= objectBottom &&
     ballTop <= objectBottom &&
-    ballLeft >= objectLeft &&
-    ballRight <= objectRight
+    ballLeft + ball.size / 2 >= objectLeft &&
+    ballRight - ball.size / 2 <= objectRight
   ) {
     return 1;
   }
@@ -24,8 +24,8 @@ export function collisionDetection(ball, object) {
     //detect bottom of ball collision
     ballBottom >= objectTop &&
     ballTop <= objectTop &&
-    ballLeft >= objectLeft &&
-    ballRight <= objectRight
+    ballLeft + ball.size / 2 >= objectLeft &&
+    ballRight - ball.size / 2 <= objectRight
   ) {
     return 2;
   }
