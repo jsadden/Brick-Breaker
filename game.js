@@ -45,7 +45,10 @@ export default class Game {
 
     //build level and add objects to array
     this.gamestate = GAMESTATE.RUNNING;
-    let bricks = this.buildLevel(this.levels.level[this.currentLevel - 1]);
+
+    //Uncomment following line and one below in update() for 10-set level gameplay
+    //let bricks = this.buildLevel(this.levels.level[this.currentLevel - 1]);
+    let bricks = this.buildRandomLevel();
     this.gameObjects = [this.paddle, this.ball, ...bricks];
   }
 
@@ -83,7 +86,10 @@ export default class Game {
       } else {
         //increment and build next level
         this.currentLevel++;
-        let bricks = this.buildLevel(this.levels.level[this.currentLevel - 1]);
+
+        //Uncomment following line and one above in start() for 10-set level gameplay
+        //let bricks = this.buildLevel(this.levels.level[this.currentLevel - 1]);
+        let bricks = this.buildRandomLevel();
         this.gameObjects = [this.paddle, this.ball, ...bricks];
 
         //add two lives, one is taken in reset, the other is awarded for passing level
@@ -154,6 +160,12 @@ export default class Game {
       ctx.fillStyle = "#fff";
       ctx.textAlign = "center";
       ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
+      ctx.font = "30px Arial";
+      ctx.fillText(
+        "Final Score: " + this.points,
+        this.gameWidth / 2,
+        this.gameHeight / 2 + 50
+      );
 
       //Lost a life, looks like menu and resets positions
     } else if (this.gamestate === GAMESTATE.LOSTLIFE) {
@@ -189,6 +201,47 @@ export default class Game {
     let bricks = [];
     let rows = level.length;
     let cols = level[0].length;
+
+    //iterate through array and add a brick when the element is 1
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        if (level[i][j] === 1) {
+          //Bricks are 50px X 50px, this places this accordingly
+          let position = {
+            x: 100 + 50 * j,
+            y: 50 + 50 * i
+          };
+          bricks.push(new Brick(this, position));
+        }
+      }
+    }
+    return bricks;
+  }
+
+  //////////////////
+  //Build random symmetrical level, generates 6x12
+  //level array and determines brick placement
+  //////////////////
+  buildRandomLevel() {
+    let bricks = [];
+
+    let rows = 6; //rows in array
+    let halfCols = 6;
+    let cols = 12; //cols in array
+    let level = new Array(rows); //level array
+
+    //iterate through a row's first six elements and mirror
+    for (let i = 0; i < rows; i++) {
+      let row = new Array(cols);
+      for (let j = 0; j < halfCols; j++) {
+        //Gives zero or one
+        let randVal = Math.round(Math.random());
+        //Assigns value to row element and mirrors it
+        row[j] = randVal;
+        row[cols - 1 - j] = randVal;
+      }
+      level[i] = row; //add row to level array
+    }
 
     //iterate through array and add a brick when the element is 1
     for (let i = 0; i < rows; i++) {
